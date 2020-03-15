@@ -7,7 +7,7 @@ from handlers.dialog_handler import _stop_dialog
 
 @run_async
 def _start(update: Update, context: CallbackContext):
-    _stop_dialog(update, context)
+    
     user: User = update.message.from_user
 
     base = DataBase()
@@ -16,7 +16,8 @@ def _start(update: Update, context: CallbackContext):
 
     if not result:
         base.add_user(f"{user.id}", user.first_name, user.last_name or "", user.username or "")
-
+    else:
+        _stop_dialog(update, context)
     base.close()
 
     keyboard = [["Начать диалог 🚀"]]
