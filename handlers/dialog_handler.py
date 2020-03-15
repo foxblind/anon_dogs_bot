@@ -58,12 +58,13 @@ def _stop_dialog(update: Update, context: CallbackContext):
 
     companion_id = base.reset_companion(str(user.id))
     base.set_status(str(user.id), "pause")
-    base.set_status(companion_id, "pause")
+    
 
     keyboard = [["Начать диалог 🚀"]]
     markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     if len(str(companion_id)):
+        base.set_status(companion_id, "pause")
         context.bot.send_message(companion_id, "Собеседник покинул чат.", reply_markup=markup)
         context.bot.send_message(user.id, "Вы закончили связь с Вашим собеседником🙄.", reply_markup=markup)
     else:
